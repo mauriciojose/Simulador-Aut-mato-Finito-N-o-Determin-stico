@@ -1,7 +1,10 @@
 
 
+import java.awt.Color;
+import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.ImageIcon;
 
 
 
@@ -20,55 +23,8 @@ public class NovoJFrame extends javax.swing.JFrame {
     /**
      * Creates new form NovoJFrame
      */
-    boolean aqui = false;
-    int circ = -1;
     public NovoJFrame() {
         initComponents(); 
-        painelDesenhaCirculo.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent e) {
-                    //System.out.println("aquiaaaaaaaaaa");
-                    painelDesenhaCirculo.desenha(e.getX(), e.getY());
-                    painelMoveCirculo.desenha(e.getX(), e.getY());
-                    painelDesenhaLinha.desenha(painelDesenhaCirculo.id,e.getX(), e.getY());
-                    repaint();
-            }    
-        });
-        painelMoveCirculo.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent e) {
-
-                for (int i = 0; i < painelMoveCirculo.circulos.size(); i++) {
-                    //System.out.println("SIZE: " + circulos.size());
-
-                    Circulo circulo = new Circulo(painelMoveCirculo.circulos.get(i).id, painelMoveCirculo.circulos.get(i).x, painelMoveCirculo.circulos.get(i).y);
-
-                    //System.out.println("x: " + circulos.get(i).x + "y: " + circulos.get(i).y + "e.x: " + e.getX() + " e.y: " + e.getY());
-                    if (circulo.verificaMouseDentroDoCirculo(e.getX(), e.getY())) {
-                        aqui = true;
-                        circ = i;
-                    }
-                }
-            }
-
-            public void mouseReleased(MouseEvent e) {
-                aqui = false;
-                painelDesenhaCirculo.circulos.get(circ).x = e.getX();
-                painelDesenhaCirculo.circulos.get(circ).y = e.getY();
-            }
-
-            public void mouseDragged(MouseEvent e) {
-                // Somente faço isso caso eu tenha clicado em cima do círculo e não tenha soltado o mesmo
-                //mouseSobreDesenho = true;
-                if (aqui) {
-                    //System.out.println("PosX: " + e.getX() + " PosY" + e.getY());
-                    painelMoveCirculo.circulos.get(circ).x = e.getX();
-                    painelMoveCirculo.circulos.get(circ).y = e.getY();
-                    //System.out.println("Size: " + painel11.circulos.size());
-                    painelMoveCirculo.repaint();
-                }
-
-            }
-        });
 	
   }
        
@@ -81,56 +37,94 @@ public class NovoJFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTabbedPane1 = new javax.swing.JTabbedPane();
-        painelDesenhaCirculo = new PainelDesenhaCirculo();
-        painelMoveCirculo = new PainelMover();
-        painelDesenhaLinha = new PainelDesenhaLinha();
+        jTabbedPane2 = new javax.swing.JTabbedPane();
+        jPanel1 = new javax.swing.JPanel();
+        ImageIcon imgSeta;
+        imgSeta = new ImageIcon("C:\\Users\\Mauricio José\\Documents\\NetBeansProjects\\desenharGrafo\\src\\seta.png");
+        Image seta = imgSeta.getImage().getScaledInstance(30, 25, java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
+        imgSeta = new ImageIcon(seta);
+        jButton3 = new javax.swing.JButton(imgSeta);
+        ImageIcon imgAutomato;
+        imgAutomato = new ImageIcon("C:\\Users\\Mauricio José\\Documents\\NetBeansProjects\\desenharGrafo\\src\\automato.png");
+        Image newimg = imgAutomato.getImage().getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
+        imgAutomato = new ImageIcon(newimg);
+        jButton4 = new javax.swing.JButton(imgAutomato);
+        ImageIcon imgMover;
+        imgMover = new ImageIcon("C:\\Users\\Mauricio José\\Documents\\NetBeansProjects\\desenharGrafo\\src\\mover.png");
+        Image mover = imgMover.getImage().getScaledInstance(30, 25, java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
+        imgMover = new ImageIcon(mover);
+        jButton5 = new javax.swing.JButton(imgMover);
+        editor1 = new Editor();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTabbedPane1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        javax.swing.GroupLayout painelDesenhaCirculoLayout = new javax.swing.GroupLayout(painelDesenhaCirculo);
-        painelDesenhaCirculo.setLayout(painelDesenhaCirculoLayout);
-        painelDesenhaCirculoLayout.setHorizontalGroup(
-            painelDesenhaCirculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        jButton3.setText(null);
+        jButton3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        jButton4.setText(null);
+        jButton4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
+        jButton5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+
+        editor1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
+
+        javax.swing.GroupLayout editor1Layout = new javax.swing.GroupLayout(editor1);
+        editor1.setLayout(editor1Layout);
+        editor1Layout.setHorizontalGroup(
+            editor1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
         );
-        painelDesenhaCirculoLayout.setVerticalGroup(
-            painelDesenhaCirculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+        editor1Layout.setVerticalGroup(
+            editor1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 319, Short.MAX_VALUE)
         );
 
-        jTabbedPane1.addTab("adicionar", painelDesenhaCirculo);
-
-        javax.swing.GroupLayout painelMoveCirculoLayout = new javax.swing.GroupLayout(painelMoveCirculo);
-        painelMoveCirculo.setLayout(painelMoveCirculoLayout);
-        painelMoveCirculoLayout.setHorizontalGroup(
-            painelMoveCirculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(751, Short.MAX_VALUE))
+            .addComponent(editor1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-        painelMoveCirculoLayout.setVerticalGroup(
-            painelMoveCirculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(editor1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jTabbedPane1.addTab("mover", painelMoveCirculo);
-
-        javax.swing.GroupLayout painelDesenhaLinhaLayout = new javax.swing.GroupLayout(painelDesenhaLinha);
-        painelDesenhaLinha.setLayout(painelDesenhaLinhaLayout);
-        painelDesenhaLinhaLayout.setHorizontalGroup(
-            painelDesenhaLinhaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 395, Short.MAX_VALUE)
-        );
-        painelDesenhaLinhaLayout.setVerticalGroup(
-            painelDesenhaLinhaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 228, Short.MAX_VALUE)
-        );
-
-        jTabbedPane1.addTab("Transição", painelDesenhaLinha);
+        jTabbedPane2.addTab("EDITOR", jPanel1);
 
         jMenu1.setText("File");
         jMenuBar1.add(jMenu1);
@@ -144,15 +138,45 @@ public class NovoJFrame extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addComponent(jTabbedPane2, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(jTabbedPane2)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        jButton3.setBackground(null);
+        jButton4.setBackground(null);
+        jButton5.setBackground(Color.cyan);
+        
+        editor1.setMover(true);
+        editor1.setDesenhaLinha(false);
+        editor1.setDesenhaCirculo(false);
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        jButton3.setBackground(null);
+        jButton4.setBackground(Color.cyan);
+        jButton5.setBackground(null);
+        
+        editor1.setDesenhaCirculo(true);
+        editor1.setMover(false);
+        editor1.setDesenhaLinha(false);
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        jButton3.setBackground(Color.cyan);
+        jButton4.setBackground(null);
+        jButton5.setBackground(null);
+        
+        editor1.setDesenhaLinha(true);
+        editor1.setDesenhaCirculo(false);
+        editor1.setMover(false);
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -190,12 +214,14 @@ public class NovoJFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private Editor editor1;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JTabbedPane jTabbedPane1;
-    private PainelDesenhaCirculo painelDesenhaCirculo;
-    private PainelDesenhaLinha painelDesenhaLinha;
-    private PainelMover painelMoveCirculo;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JTabbedPane jTabbedPane2;
     // End of variables declaration//GEN-END:variables
 }

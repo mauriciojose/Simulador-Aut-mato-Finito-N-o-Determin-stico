@@ -63,7 +63,7 @@ public class Circulo
 		if(((mousePosX >= (x-3)) && (mousePosY >= (y-3)))
 				&& ((mousePosX <= ((width + x)+12)) && (mousePosY <=
 				(heigth + (y+10))))){
-                    System.out.println("Circulo.verificaMouseDentroDoCirculo()");
+                    //System.out.println("Circulo.verificaMouseDentroDoCirculo()");
 			return true;
 		}
 		return false;
