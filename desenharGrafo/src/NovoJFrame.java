@@ -39,6 +39,11 @@ public class NovoJFrame extends javax.swing.JFrame {
 
         jTabbedPane2 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
+        ImageIcon imgMover;
+        imgMover = new ImageIcon("C:\\Users\\Mauricio José\\Documents\\NetBeansProjects\\desenharGrafo\\src\\mover.png");
+        Image mover = imgMover.getImage().getScaledInstance(30, 25, java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
+        imgMover = new ImageIcon(mover);
+        jButton5 = new javax.swing.JButton(imgMover);
         ImageIcon imgSeta;
         imgSeta = new ImageIcon("C:\\Users\\Mauricio José\\Documents\\NetBeansProjects\\desenharGrafo\\src\\seta.png");
         Image seta = imgSeta.getImage().getScaledInstance(30, 25, java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
@@ -49,19 +54,25 @@ public class NovoJFrame extends javax.swing.JFrame {
         Image newimg = imgAutomato.getImage().getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
         imgAutomato = new ImageIcon(newimg);
         jButton4 = new javax.swing.JButton(imgAutomato);
-        ImageIcon imgMover;
-        imgMover = new ImageIcon("C:\\Users\\Mauricio José\\Documents\\NetBeansProjects\\desenharGrafo\\src\\mover.png");
-        Image mover = imgMover.getImage().getScaledInstance(30, 25, java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
-        imgMover = new ImageIcon(mover);
-        jButton5 = new javax.swing.JButton(imgMover);
-        editor1 = new Editor();
+        jTextField1 = new javax.swing.JTextField();
+        editor1 = new Editor(this);
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        //jTabbedPane2.add(new Editor(), "EDITOR    ");
+
+        jPanel1.setBackground(new java.awt.Color(216, 240, 240));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        jButton5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText(null);
         jButton3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -79,24 +90,23 @@ public class NovoJFrame extends javax.swing.JFrame {
             }
         });
 
-        jButton5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        jTextField1.setText("E");
+        jTextField1.setEnabled(false);
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                jTextField1ActionPerformed(evt);
             }
         });
-
-        editor1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
 
         javax.swing.GroupLayout editor1Layout = new javax.swing.GroupLayout(editor1);
         editor1.setLayout(editor1Layout);
         editor1Layout.setHorizontalGroup(
             editor1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 759, Short.MAX_VALUE)
         );
         editor1Layout.setVerticalGroup(
             editor1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 319, Short.MAX_VALUE)
+            .addGap(0, 441, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -104,24 +114,29 @@ public class NovoJFrame extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(4, 4, 4)
+                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
-                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(751, Short.MAX_VALUE))
+                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addComponent(editor1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(11, 11, 11)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(editor1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(7, 7, 7)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(6, 6, 6)
+                .addComponent(editor1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane2.addTab("EDITOR", jPanel1);
@@ -148,21 +163,15 @@ public class NovoJFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        jButton3.setBackground(null);
-        jButton4.setBackground(null);
-        jButton5.setBackground(Color.cyan);
-        
-        editor1.setMover(true);
-        editor1.setDesenhaLinha(false);
-        editor1.setDesenhaCirculo(false);
-    }//GEN-LAST:event_jButton5ActionPerformed
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         jButton3.setBackground(null);
         jButton4.setBackground(Color.cyan);
         jButton5.setBackground(null);
-        
+
         editor1.setDesenhaCirculo(true);
         editor1.setMover(false);
         editor1.setDesenhaLinha(false);
@@ -172,11 +181,21 @@ public class NovoJFrame extends javax.swing.JFrame {
         jButton3.setBackground(Color.cyan);
         jButton4.setBackground(null);
         jButton5.setBackground(null);
-        
+
         editor1.setDesenhaLinha(true);
         editor1.setDesenhaCirculo(false);
         editor1.setMover(false);
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        jButton3.setBackground(null);
+        jButton4.setBackground(null);
+        jButton5.setBackground(Color.cyan);
+
+        editor1.setMover(true);
+        editor1.setDesenhaLinha(false);
+        editor1.setDesenhaCirculo(false);
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -223,5 +242,6 @@ public class NovoJFrame extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTabbedPane jTabbedPane2;
+    public javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }

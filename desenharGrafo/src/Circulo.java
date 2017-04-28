@@ -6,9 +6,13 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.geom.Ellipse2D;
+import java.util.ArrayList;
 
 public class Circulo
 {
+    
+        ArrayList<Linha> linhasIda = new ArrayList();
+        
 	public double width;
 	public double heigth;
 	public double x;
@@ -25,6 +29,7 @@ public class Circulo
 		x = posX;
 		y = posY;
 	}
+        
 	public void draw(boolean desenha, boolean selecionado, Graphics2D g2)
 	{
                 g2g = g2;
@@ -58,8 +63,8 @@ public class Circulo
 	public boolean verificaMouseDentroDoCirculo(int mousePosX, int mousePosY)
 	{
             
-            System.out.println("X: "+x+"Y:"+y);
-            System.out.println("posX: "+mousePosX+"posY:"+mousePosY);
+            //System.out.println("X: "+x+"Y:"+y);
+            //System.out.println("posX: "+mousePosX+"posY:"+mousePosY);
 		if(((mousePosX >= (x-3)) && (mousePosY >= (y-3)))
 				&& ((mousePosX <= ((width + x)+12)) && (mousePosY <=
 				(heigth + (y+10))))){
