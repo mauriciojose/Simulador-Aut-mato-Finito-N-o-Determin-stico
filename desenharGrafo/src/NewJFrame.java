@@ -34,8 +34,8 @@ public class NewJFrame extends javax.swing.JFrame {
         super.paintComponents(g);
         double rotation = 50;
         Graphics2D g2d = (Graphics2D) g.create();
-        Ellipse2D e = new Ellipse2D.Double(50, 20, 80,30);
-        g2d.drawString("MAURICIO", 50, 100);
+        Ellipse2D e = new Ellipse2D.Double(50, 50, 110,110);
+        g2d.draw(e);
         //for (double i = 0; i < 360; i += 5) {
 //            AffineTransform at = AffineTransform.getTranslateInstance(400 / 2, 400 / 2);
 //            at.rotate(Math.toRadians(30));

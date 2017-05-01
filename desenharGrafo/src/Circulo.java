@@ -21,6 +21,8 @@ public class Circulo
         Graphics2D g2g;
         Ellipse2D circle;
         int id;
+        public boolean Einicial = false;
+        public boolean Efinal = false;
 	public Circulo(int id, double posX, double posY)
 	{
                 this.id = id;
@@ -44,15 +46,32 @@ public class Circulo
 		}
 		else{
                         
-			g2g.setStroke(new BasicStroke(3));
+			
 			g2g.setPaint(Color.YELLOW);
 			g2g.fill(circle);
 			g2g.setPaint(Color.BLACK);
                         //g2g.setColor(Color.RED);
                         g2g.setFont(new Font("Verdana",Font.PLAIN,20));
                         FontMetrics fm = g2.getFontMetrics();
-                        
                         g2g.drawString("q"+id, (int)(x+15), (int)(y+35));
+                        
+                        g2g.setStroke(new BasicStroke(1));
+                        g2g.setPaint(Color.BLACK);
+                        if (Einicial) {
+                            g2g.drawLine((int)x-30,(int) y+5,(int) x-30,(int) y+55);
+                            g2g.drawLine((int)x-30,(int) y+5,(int) x,(int) y+30);
+                            g2g.drawLine((int)x-30,(int) y+55,(int) x,(int) y+30);
+                        }
+                        
+                        if (Efinal) {
+                            Ellipse2D e = new Ellipse2D.Double(x+5, y+5, 50,50);
+                            g2g.draw(e);
+                        }
+                        
+                        
+                        
+                        
+                        
 		}
 		// Somente desenho caso a minha flag "desenha" esteja setada como true
 		if(desenha){

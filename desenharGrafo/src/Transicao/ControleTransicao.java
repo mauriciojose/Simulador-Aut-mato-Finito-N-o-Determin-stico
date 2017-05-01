@@ -43,37 +43,15 @@ public class ControleTransicao {
 
     public void run(Estado estado, String palavra) {
         existe.put("%", Boolean.TRUE);
-//        controlaTransicao(new Estado("0"), new Transicao("E", new Estado("1")));
-//        controlaTransicao(new Estado("0"), new Transicao("E", new Estado("3")));
-//        //controlaTransicao(new Estado("1"), new Transicao('E', new Estado("4")));
-//        //controlaTransicao(new Estado("2"), new Transicao('b', new Estado("3")));
-//        //controlaTransicao(new Estado("3"), new Transicao('E', new Estado("4")));
-//        
-//        controlaTransicao(new Estado("1"), new Transicao("a", new Estado("2")));
-//        controlaTransicao(new Estado("2"), new Transicao("a", new Estado("3")));
-//
-//        controlaTransicao(new Estado("3"), new Transicao("E", new Estado("4")));
-//        controlaTransicao(new Estado("4"), new Transicao("b", new Estado("5")));
-
-//        controlaTransicao(new Estado("4"), new Transicao('E', new Estado("7")));
-//        controlaTransicao(new Estado("5"), new Transicao('b', new Estado("6")));
-//        controlaTransicao(new Estado("6"), new Transicao('E', new Estado("5")));
-//        controlaTransicao(new Estado("6"), new Transicao('E', new Estado("7")));
-        //controlaTransicao(new Estado("4"), new Transicao('E', new Estado("5")));
-        //controlaTransicao(new Estado("5"), new Transicao('E', new Estado("6")));
-        //estadosFinais.add("1");
-        estadosFinais.add("3");
-
-//        System.out.println("Digite a palavra: ");
-//        String palavra = input.nextLine();
-//        Estado e = new Estado("0");
+        
+        estadosFinais.add("2");
+        
         boolean aceita = percorrePalavra(estado, palavra);
         
         ///verificado = estados;
         existe.clear();
         
         if (aceita) {
-            System.out.println("AQUIIIIIIIIIII");
             boolean loopVEstadosFinais;
             do {
                 

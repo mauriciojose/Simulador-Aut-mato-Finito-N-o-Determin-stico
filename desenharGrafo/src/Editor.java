@@ -15,6 +15,10 @@ import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JPopupMenu;
 import javax.swing.JTextField;
 
 /*
@@ -28,8 +32,9 @@ import javax.swing.JTextField;
  */
 // Painel do frame, e que desenha o progresso
 public class Editor extends javax.swing.JPanel implements ActionListener, MouseListener, MouseMotionListener {
+
     ControleTransicao ct = new ControleTransicao();
-    
+
     int contar = 0;
     NovoJFrame njf;
     //ArrayList<mapearEstados> transicoes;
@@ -68,6 +73,9 @@ public class Editor extends javax.swing.JPanel implements ActionListener, MouseL
     int indexCirculoAtual;
     int verificaLinha;
 
+    int indexCirculoInicial = -1;
+    int indexAtualizaCiculoIni = -1;
+
     public Editor(NovoJFrame njf) {
         this.njf = njf;
         // Iniciando as variáveis
@@ -79,12 +87,6 @@ public class Editor extends javax.swing.JPanel implements ActionListener, MouseL
         desenha = false;
         //mouseSobreDesenho = false;
         selecionado = false;
-
-        JTextField text = new JTextField(10);
-        text.setLocation(10, 10);
-        text.setVisible(true);
-        this.add(text);
-        validate();
 
         addMouseListener(this);
         addMouseMotionListener(this);
@@ -116,22 +118,22 @@ public class Editor extends javax.swing.JPanel implements ActionListener, MouseL
                         //linhas.get(linhas.size()-1).lado = verificaLado(circuloAtual, circuloIda);
                         linhas.get(verificaLinha).caracter += text;
                         //linhas.get(verificaLinha).arco = true;
-                        linhas.get(verificaLinha).x2 = circuloIda.x+30;
-                        linhas.get(verificaLinha).y2 = circuloIda.y+30;
-                        
+                        linhas.get(verificaLinha).x2 = circuloIda.x + 30;
+                        linhas.get(verificaLinha).y2 = circuloIda.y + 30;
+
                         ct.controlaTransicao(new Estado(Integer.toString(circuloAtual.id)), new Transicao(text, new Estado(Integer.toString(circuloIda.id))));
-                        
-                         ArrayList<mapearEstados> trans = transicoes.get(circuloIda.id);
-                            int linhaAjuste = -1; 
-                            for (int i = 0; i < trans.size(); i++) {
-                                if (trans.get(i).circulo2 == circuloAtual.id && i != 0) {
-                                    linhaAjuste = trans.get(i).linha;
-                                        linhas.get(linhaAjuste).ajusteSeta = 4;
-                                        linhas.get(verificaLinha).ajusteSeta = 4;
-                                    
-                                }
+
+                        ArrayList<mapearEstados> trans = transicoes.get(circuloIda.id);
+                        int linhaAjuste = -1;
+                        for (int i = 0; i < trans.size(); i++) {
+                            if (trans.get(i).circulo2 == circuloAtual.id && i != 0) {
+                                linhaAjuste = trans.get(i).linha;
+                                linhas.get(linhaAjuste).ajusteSeta = 4;
+                                linhas.get(verificaLinha).ajusteSeta = 4;
+
                             }
-                        
+                        }
+
                         repaint();
 
                         njf.jTextField1.setText("E");
@@ -156,7 +158,7 @@ public class Editor extends javax.swing.JPanel implements ActionListener, MouseL
     }
 
     @Override
-    public void paint(Graphics g) {
+    public void paintComponent(Graphics g) {
         super.paintComponent(g);
         //super.paintComponents(g);
         Graphics2D g2d = (Graphics2D) g.create();
@@ -168,8 +170,8 @@ public class Editor extends javax.swing.JPanel implements ActionListener, MouseL
         for (Circulo circulo : circulos) {
             circulo.draw(desenha, selecionado, (Graphics2D) g);
         }
+        //g2d.dispose();
 
-        g2d.dispose();
     }
 
     public void desenha(int x, int y) {
@@ -270,92 +272,6 @@ public class Editor extends javax.swing.JPanel implements ActionListener, MouseL
         }
 
     }
-
-    /*public void ajustaSeta(Circulo circuloAtual, Circulo circuloIda) {
-        if (verificaLado(circuloAtual, circuloIda).equals("DIREITO")) {
-            //System.out.println("D...");
-            int novoY = (int) (((circuloIda.y + 30) - (circuloAtual.y + 30)) / 2);
-
-            linhas.get(linhas.size() - 1).x = circuloAtual.x + 30;
-            linhas.get(linhas.size() - 1).y = circuloAtual.y + 30;
-
-            linhas.get(linhas.size() - 1).width = circuloIda.x;
-            linhas.get(linhas.size() - 1).heigth = (circuloIda.y + 30) - novoY;
-
-            int ajusteX = (int) ((circuloIda.y + 30) - (linhas.get(linhas.size() - 1).heigth)) / 2;
-            if (ajusteX < 0) {
-                ajusteX = ajusteX * (-1);
-                linhas.get(linhas.size() - 1).width = circuloIda.x + (ajusteX - 3);
-            } else {
-                linhas.get(linhas.size() - 1).width = circuloIda.x + (ajusteX - 3);
-            }
-
-            repaint();
-        } else {
-            if (verificaLado(circuloAtual, circuloIda).equals("ESQUERDO")) {
-                System.out.println("E...");
-                int novoY = (int) (((circuloIda.y + 30) - (circuloAtual.y + 30)) / 2);
-
-                linhas.get(linhas.size() - 1).x = circuloAtual.x + 30;
-                linhas.get(linhas.size() - 1).y = circuloAtual.y + 30;
-
-                linhas.get(linhas.size() - 1).width = circuloIda.x + 60;
-                linhas.get(linhas.size() - 1).heigth = (circuloIda.y + 30) - novoY;
-
-                int ajusteX = (int) ((circuloIda.y + 30) - (linhas.get(linhas.size() - 1).heigth)) / 2;
-                if (ajusteX < 0) {
-                    ajusteX = ajusteX * (-1);
-                    linhas.get(linhas.size() - 1).width -= (ajusteX - 3);
-                } else {
-                    linhas.get(linhas.size() - 1).width -= (ajusteX - 3);
-                }
-                repaint();
-            } else {
-                if (verificaLado(circuloAtual, circuloIda).equals("CIMA")) {
-                    System.out.println("C...");
-                    int novoX = (int) (((circuloIda.x + 30) - (circuloAtual.x + 30)) / 2);
-
-                    linhas.get(linhas.size() - 1).x = circuloAtual.x + 30;
-                    linhas.get(linhas.size() - 1).y = circuloAtual.y + 30;
-
-                    linhas.get(linhas.size() - 1).heigth = circuloIda.y + 60;
-                    linhas.get(linhas.size() - 1).width = (circuloIda.x + 30) - novoX;
-
-                    int ajusteY = (int) ((circuloIda.x + 30) - (linhas.get(linhas.size() - 1).width)) / 2;
-                    if (ajusteY < 0) {
-                        ajusteY = ajusteY * (-1);
-                        linhas.get(linhas.size() - 1).heigth -= (ajusteY - 3);
-                    } else {
-                        linhas.get(linhas.size() - 1).heigth -= (ajusteY - 3);
-                    }
-                    repaint();
-                } else {
-                    if (verificaLado(circuloAtual, circuloIda).equals("BAIXO")) {
-                        System.out.println("B...");
-                        int novoX = (int) (((circuloIda.x + 30) - (circuloAtual.x + 30)) / 2);
-
-                        linhas.get(linhas.size() - 1).x = circuloAtual.x + 30;
-                        linhas.get(linhas.size() - 1).y = circuloAtual.y + 30;
-
-                        linhas.get(linhas.size() - 1).heigth = circuloIda.y;
-                        linhas.get(linhas.size() - 1).width = (circuloIda.x + 30) - novoX;
-
-                        int ajusteY = (int) ((circuloIda.x + 30) - (linhas.get(linhas.size() - 1).width)) / 2;
-                        if (ajusteY < 0) {
-                            ajusteY = ajusteY * (-1);
-                            linhas.get(linhas.size() - 1).heigth += (ajusteY - 3);
-                        } else {
-                            linhas.get(linhas.size() - 1).heigth += (ajusteY - 3);
-                        }
-
-                        repaint();
-                    } else {
-                        diagonal(circuloAtual, circuloIda, linhas.size() - 1);
-                    }
-                }
-            }
-        }
-    }*/
     public void ajustaMovSeta(Circulo circuloAtual, Circulo circuloIda, int posLinha) {
         if (verificaLado(circuloAtual, circuloIda).equals("DIREITO")) {
             //System.out.println("D...");
@@ -499,10 +415,56 @@ public class Editor extends javax.swing.JPanel implements ActionListener, MouseL
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        if (desenhaCirculo) {
 
+        if (mover) {
+            if ((e.getModifiers() & MouseEvent.BUTTON3_MASK) != 0) {
+
+                for (int i = 0; i < circulos.size(); i++) {
+                    circulo = new Circulo(circulos.get(i).id, circulos.get(i).x, circulos.get(i).y);
+
+                    if (circulo.verificaMouseDentroDoCirculo(e.getX(), e.getY())) {
+                        indexAtualizaCiculoIni = indexCirculoInicial;
+                        indexCirculoInicial = i;
+
+                        JPopupMenu menu = new JPopupMenu();
+                        JCheckBox cliqueme = new JCheckBox("INICIAL");
+                        if (circulos.get(indexCirculoInicial).Einicial) {
+                            cliqueme.setSelected(true);
+                        }
+                        cliqueme.addActionListener(new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent ae) {
+
+                                if (indexAtualizaCiculoIni != -1) {
+                                    circulos.get(indexCirculoInicial).Einicial = true;
+                                    circulos.get(indexAtualizaCiculoIni).Einicial = false;
+                                    repaint();
+                                } else {
+                                    circulos.get(indexCirculoInicial).Einicial = true;
+                                    repaint();
+                                }
+
+                            }
+                        });
+                        JMenuItem itemEstadosFinais = new JMenuItem("FINAL");
+                        itemEstadosFinais.addActionListener(new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent ae) {
+                                JOptionPane.showMessageDialog(null, "Fui clicado !");
+                            }
+                        });
+                        menu.add(cliqueme);
+                        menu.add(itemEstadosFinais);
+                        menu.show(this, e.getX(), e.getY());
+                    }
+                }
+            }
+        }
+
+        if (desenhaCirculo) {
             desenha(e.getX(), e.getY());
             repaint();
+            
         } else {
             if (desenhaLinha) {
                 if (enableText) {
@@ -572,28 +534,28 @@ public class Editor extends javax.swing.JPanel implements ActionListener, MouseL
                         circuloIda = circulo;
 
                         if (verificaTransicao(map.get(circuloAtual.id), circuloIda.id) == false) {
-                           
+
                             ((ArrayList) map.get(circuloAtual.id)).add(circuloIda);
 
                             if (!transicoes.containsKey(circuloIda.id)) {
                                 transicoes.put(circuloIda.id, new ArrayList());
                                 ((ArrayList) transicoes.get(circuloIda.id)).add(new mapearEstados(linhas.size() - 1, indexCirculoAtual, false));
-                                System.out.println("SIZE2: "+transicoes.get(circuloIda.id).size());
+                                System.out.println("SIZE2: " + transicoes.get(circuloIda.id).size());
                             } else {
                                 ((ArrayList) transicoes.get(circuloIda.id)).add(new mapearEstados(linhas.size() - 1, indexCirculoAtual, false));
-                                System.out.println("SIZE3: "+transicoes.get(circuloIda.id).size());
+                                System.out.println("SIZE3: " + transicoes.get(circuloIda.id).size());
                             }
                             if (!transicoes.containsKey(circuloAtual.id)) {
                                 transicoes.put(circuloAtual.id, new ArrayList());
                                 ((ArrayList) transicoes.get(circuloAtual.id)).add(new mapearEstados(linhas.size() - 1, circuloIda.id, true));
-                                System.out.println("SIZEatual: "+transicoes.get(circuloAtual.id).size());
+                                System.out.println("SIZEatual: " + transicoes.get(circuloAtual.id).size());
                             } else {
                                 ((ArrayList) transicoes.get(circuloAtual.id)).add(new mapearEstados(linhas.size() - 1, circuloIda.id, true));
-                                System.out.println("SIZEatual1: "+transicoes.get(circuloAtual.id).size());
+                                System.out.println("SIZEatual1: " + transicoes.get(circuloAtual.id).size());
                             }
                             //ArrayList<mapearEstados> trans = transicoes.get(circuloAtual.id);
                             ajustaMovSeta(circuloAtual, circuloIda, linhas.size() - 1);
-                            
+
                             enableText = true;
                             njf.jTextField1.setEnabled(true);
                             njf.jTextField1.requestFocusInWindow();
@@ -605,28 +567,17 @@ public class Editor extends javax.swing.JPanel implements ActionListener, MouseL
                             njf.jTextField1.setEnabled(true);
                             njf.jTextField1.requestFocusInWindow();
                             njf.jTextField1.selectAll();
-                            
-                             ArrayList<mapearEstados> trans = transicoes.get(circuloAtual.id);
+
+                            ArrayList<mapearEstados> trans = transicoes.get(circuloAtual.id);
                             for (int j = 0; j < trans.size(); j++) {
-                                
+
                                 if (trans.get(j).circulo2 == circuloIda.id) {
-                                      if (trans.get(j).ponta) {
-                                           verificaLinha = trans.get(j).linha;
-                                      }
+                                    if (trans.get(j).ponta) {
+                                        verificaLinha = trans.get(j).linha;
+                                    }
                                 }
                             }
-//                            ArrayList<mapearEstados> transIda = transicoes.get(circuloAtual.id);
-//                            for (int k = 0; k < transIda.size(); k++) {
-//                                
-//                                if (transIda.get(k).circulo2 == circuloIda.id) {
-//                                    if (!transIda.get(k).ponta) {
-//                                        verificaLinha = transIda.get(k).linha;
-//                                    }
-//                                    //verificaLinha = transIda.get(k).linha;
-//                                    //break;
-//                                }
-//                            }
-                            
+
                         }
                     }
                 }
@@ -670,7 +621,7 @@ public class Editor extends javax.swing.JPanel implements ActionListener, MouseL
 //                            linhas.get(trans.get(i).linha).x2 = circulos.get(circ).x + 30;
 //                            linhas.get(trans.get(i).linha).y2 = circulos.get(circ).y + 30;
                         }
-                        
+
                     }
                     //System.out.println("Size: "+trans.size());
 
@@ -697,14 +648,15 @@ public class Editor extends javax.swing.JPanel implements ActionListener, MouseL
     public void mouseMoved(MouseEvent e) {
 
     }
-    public void percorrePalavra(String palavra)
-    {
+
+    public void percorrePalavra(String palavra) {
         ct.estados.clear();
         ct.existe.clear();
         ct.existeEpslonFinal.clear();
         ct.estadosFinaisProcesso.clear();
         ct.run(new Estado("0"), palavra);
     }
+
     /*================================== MÉTODOS GETTERS E SETTS ===========================================*/
     public void setDesenhaLinha(boolean desenhaLinha) {
         this.desenhaLinha = desenhaLinha;
