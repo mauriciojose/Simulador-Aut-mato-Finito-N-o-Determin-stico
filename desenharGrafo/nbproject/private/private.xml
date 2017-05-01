@@ -6,8 +6,10 @@
         <group name="NetBeansProjects">
             <file>file:/C:/Users/Mauricio%20José/Documents/NetBeansProjects/desenharGrafo/src/Linha.java</file>
             <file>file:/C:/Users/Mauricio%20José/Documents/NetBeansProjects/desenharGrafo/src/NovoJFrame.java</file>
+            <file>file:/C:/Users/Mauricio%20José/Documents/NetBeansProjects/desenharGrafo/src/Estado/Estado.java</file>
             <file>file:/C:/Users/Mauricio%20José/Documents/NetBeansProjects/desenharGrafo/src/mapearEstados.java</file>
             <file>file:/C:/Users/Mauricio%20José/Documents/NetBeansProjects/desenharGrafo/src/Editor.java</file>
+            <file>file:/C:/Users/Mauricio%20José/Documents/NetBeansProjects/desenharGrafo/src/Transicao/ControleTransicao.java</file>
         </group>
     </open-files>
 </project-private>

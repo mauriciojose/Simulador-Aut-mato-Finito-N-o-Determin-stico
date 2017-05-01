@@ -1,6 +1,12 @@
 
+import java.awt.BasicStroke;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.Arc2D;
+import java.awt.geom.Ellipse2D;
+import java.awt.geom.GeneralPath;
+import java.awt.geom.Line2D;
 import java.awt.geom.QuadCurve2D;
 
 /*
@@ -8,7 +14,6 @@ import java.awt.geom.QuadCurve2D;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author Mauricio José
@@ -20,16 +25,40 @@ public class NewJFrame extends javax.swing.JFrame {
      */
     public NewJFrame() {
         initComponents();
-        
+
     }
+
     @Override
     public void paint(Graphics g) {
         //super.paintComponent(g);
         super.paintComponents(g);
+        double rotation = 50;
         Graphics2D g2d = (Graphics2D) g.create();
-         QuadCurve2D quadcurve = new QuadCurve2D.Float(40, 100, 90,60, 120, 100);
-        g2d.draw(quadcurve);
+        Ellipse2D e = new Ellipse2D.Double(50, 20, 80,30);
+        g2d.drawString("MAURICIO", 50, 100);
+        //for (double i = 0; i < 360; i += 5) {
+//            AffineTransform at = AffineTransform.getTranslateInstance(400 / 2, 400 / 2);
+//            at.rotate(Math.toRadians(30));
+//            g2d.draw(at.createTransformedShape(e));
+//            
+//            Ellipse2D e1 = new Ellipse2D.Double(50, 50, 80,30);
+//        
+//        //for (double i = 0; i < 360; i += 5) {
+//            AffineTransform at1 = AffineTransform.getTranslateInstance(400 / 2, 400 / 2);
+//            at1.rotate(Math.toRadians(0));
+//            g2d.draw(at1.createTransformedShape(e1));
+        //}
+    
+//        g2d.drawString("x,y", 100, 100);
+////        g2d.drawString("x1,y1", 100, 300);
+//        g2d.drawString("x2,y2", 300, 100);
+////        g2d.drawString("x3,y3", 300, 300);
+//         g2d.drawString("x4,y4", 300, 200);
+//        g2d.drawString("x3,y3", 100, 200);
+
+
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -45,7 +74,7 @@ public class NewJFrame extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGap(0, 402, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

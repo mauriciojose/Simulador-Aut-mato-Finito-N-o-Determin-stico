@@ -1,4 +1,7 @@
 
+import Estado.Estado;
+import Transicao.ControleTransicao;
+import Transicao.Transicao;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -25,7 +28,8 @@ import javax.swing.JTextField;
  */
 // Painel do frame, e que desenha o progresso
 public class Editor extends javax.swing.JPanel implements ActionListener, MouseListener, MouseMotionListener {
-
+    ControleTransicao ct = new ControleTransicao();
+    
     int contar = 0;
     NovoJFrame njf;
     //ArrayList<mapearEstados> transicoes;
@@ -111,6 +115,23 @@ public class Editor extends javax.swing.JPanel implements ActionListener, MouseL
 
                         //linhas.get(linhas.size()-1).lado = verificaLado(circuloAtual, circuloIda);
                         linhas.get(verificaLinha).caracter += text;
+                        //linhas.get(verificaLinha).arco = true;
+                        linhas.get(verificaLinha).x2 = circuloIda.x+30;
+                        linhas.get(verificaLinha).y2 = circuloIda.y+30;
+                        
+                        ct.controlaTransicao(new Estado(Integer.toString(circuloAtual.id)), new Transicao(text, new Estado(Integer.toString(circuloIda.id))));
+                        
+                         ArrayList<mapearEstados> trans = transicoes.get(circuloIda.id);
+                            int linhaAjuste = -1; 
+                            for (int i = 0; i < trans.size(); i++) {
+                                if (trans.get(i).circulo2 == circuloAtual.id && i != 0) {
+                                    linhaAjuste = trans.get(i).linha;
+                                        linhas.get(linhaAjuste).ajusteSeta = 4;
+                                        linhas.get(verificaLinha).ajusteSeta = 4;
+                                    
+                                }
+                            }
+                        
                         repaint();
 
                         njf.jTextField1.setText("E");
@@ -551,24 +572,28 @@ public class Editor extends javax.swing.JPanel implements ActionListener, MouseL
                         circuloIda = circulo;
 
                         if (verificaTransicao(map.get(circuloAtual.id), circuloIda.id) == false) {
-
+                           
                             ((ArrayList) map.get(circuloAtual.id)).add(circuloIda);
 
                             if (!transicoes.containsKey(circuloIda.id)) {
                                 transicoes.put(circuloIda.id, new ArrayList());
                                 ((ArrayList) transicoes.get(circuloIda.id)).add(new mapearEstados(linhas.size() - 1, indexCirculoAtual, false));
+                                System.out.println("SIZE2: "+transicoes.get(circuloIda.id).size());
                             } else {
                                 ((ArrayList) transicoes.get(circuloIda.id)).add(new mapearEstados(linhas.size() - 1, indexCirculoAtual, false));
+                                System.out.println("SIZE3: "+transicoes.get(circuloIda.id).size());
                             }
                             if (!transicoes.containsKey(circuloAtual.id)) {
                                 transicoes.put(circuloAtual.id, new ArrayList());
                                 ((ArrayList) transicoes.get(circuloAtual.id)).add(new mapearEstados(linhas.size() - 1, circuloIda.id, true));
+                                System.out.println("SIZEatual: "+transicoes.get(circuloAtual.id).size());
                             } else {
                                 ((ArrayList) transicoes.get(circuloAtual.id)).add(new mapearEstados(linhas.size() - 1, circuloIda.id, true));
+                                System.out.println("SIZEatual1: "+transicoes.get(circuloAtual.id).size());
                             }
                             //ArrayList<mapearEstados> trans = transicoes.get(circuloAtual.id);
                             ajustaMovSeta(circuloAtual, circuloIda, linhas.size() - 1);
-
+                            
                             enableText = true;
                             njf.jTextField1.setEnabled(true);
                             njf.jTextField1.requestFocusInWindow();
@@ -582,12 +607,26 @@ public class Editor extends javax.swing.JPanel implements ActionListener, MouseL
                             njf.jTextField1.selectAll();
                             
                              ArrayList<mapearEstados> trans = transicoes.get(circuloAtual.id);
-                             
                             for (int j = 0; j < trans.size(); j++) {
+                                
                                 if (trans.get(j).circulo2 == circuloIda.id) {
-                                    verificaLinha = trans.get(j).linha;
+                                      if (trans.get(j).ponta) {
+                                           verificaLinha = trans.get(j).linha;
+                                      }
                                 }
                             }
+//                            ArrayList<mapearEstados> transIda = transicoes.get(circuloAtual.id);
+//                            for (int k = 0; k < transIda.size(); k++) {
+//                                
+//                                if (transIda.get(k).circulo2 == circuloIda.id) {
+//                                    if (!transIda.get(k).ponta) {
+//                                        verificaLinha = transIda.get(k).linha;
+//                                    }
+//                                    //verificaLinha = transIda.get(k).linha;
+//                                    //break;
+//                                }
+//                            }
+                            
                         }
                     }
                 }
@@ -624,9 +663,12 @@ public class Editor extends javax.swing.JPanel implements ActionListener, MouseL
                         if (trans.get(i).ponta) {
                             linhas.get(trans.get(i).linha).x = circulos.get(circ).x + 30;
                             linhas.get(trans.get(i).linha).y = circulos.get(circ).y + 30;
+                            ajustaMovSeta(circulos.get(circ), circulos.get(trans.get(i).circulo2), trans.get(i).linha);
                             repaint();
                         } else {
                             ajustaMovSeta(circulos.get(trans.get(i).circulo2), circulos.get(circ), trans.get(i).linha);
+//                            linhas.get(trans.get(i).linha).x2 = circulos.get(circ).x + 30;
+//                            linhas.get(trans.get(i).linha).y2 = circulos.get(circ).y + 30;
                         }
                         
                     }
@@ -655,7 +697,14 @@ public class Editor extends javax.swing.JPanel implements ActionListener, MouseL
     public void mouseMoved(MouseEvent e) {
 
     }
-
+    public void percorrePalavra(String palavra)
+    {
+        ct.estados.clear();
+        ct.existe.clear();
+        ct.existeEpslonFinal.clear();
+        ct.estadosFinaisProcesso.clear();
+        ct.run(new Estado("0"), palavra);
+    }
     /*================================== MÉTODOS GETTERS E SETTS ===========================================*/
     public void setDesenhaLinha(boolean desenhaLinha) {
         this.desenhaLinha = desenhaLinha;
